@@ -5,6 +5,7 @@ import { LoginSchema } from "./schema"
 import {useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Login() {
     const router = useRouter();
@@ -44,6 +45,11 @@ export default function Login() {
              {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
              <button type="submit" className={styles.button}>Login</button>
+             <div className={styles.register_div}>
+              <Link href="/register" className={styles.registerBtn}>
+                Create an account →
+              </Link>
+             </div>
            </form>
         </div>
     </div>

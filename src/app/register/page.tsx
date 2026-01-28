@@ -4,9 +4,11 @@ import styles from "./Register.module.css"
 import {useForm} from "react-hook-form"
 import { RegisterScehema } from "./schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useRouter } from "next/navigation";
 
 
 export default function Register() {
+ const router = useRouter();
  const {register, handleSubmit, formState: {errors}} = useForm({
     resolver: zodResolver(RegisterScehema)
  })
@@ -18,6 +20,7 @@ export default function Register() {
         body: JSON.stringify(data)
     })
     alert("Registered Sucessfully")
+    router.push("/login")
  }
 
     return (
