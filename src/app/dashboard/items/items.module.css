@@ -1,0 +1,117 @@
+.container {
+  padding: 40px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #2d2d2d;
+}
+
+.tableWrapper {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+}
+
+.table th,
+.table td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.table th {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f9fc;
+}
+
+.table tbody tr:hover {
+  background-color: #eef1ff;
+}
+
+.name {
+  font-weight: 500;
+  color: #333;
+}
+
+.description {
+  color: #666;
+  font-size: 14px;
+}
+
+.actionsCol {
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit,
+.create,
+.delete {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.edit {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.edit:hover {
+  background: #c7d2fe;
+}
+
+.delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.delete:hover {
+  background: #fecaca;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+.create{
+  background: rgb(184, 130, 238);
+  color: #151fb9;
+}
+
+.create_div{
+    padding: 10px;
+    margin-left: 90%;
+}

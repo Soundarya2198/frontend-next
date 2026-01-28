@@ -1,0 +1,25 @@
+.sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #6b6bd6, #5a4fcf);
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.link {
+  display: block;
+  padding: 10px;
+  margin-bottom: 8px;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.link:hover {
+  background: rgba(255,255,255,0.15);
+}
