@@ -6,14 +6,17 @@ import {useForm} from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {z} from "zod";
+
+type LoginForm = z.infer<typeof LoginSchema>
 
 export default function Login() {
     const router = useRouter();
-    const {register, setError,  handleSubmit, formState: {errors}} = useForm({
+    const {register, setError,  handleSubmit, formState: {errors}} = useForm<LoginForm>({
         resolver: zodResolver(LoginSchema)
     })
 
-    const submit = async (data: any) => {
+    const submit = async (data: LoginForm) => {
       const res =  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
          method: "Post",
          headers: {"Content-type": "application/json"},

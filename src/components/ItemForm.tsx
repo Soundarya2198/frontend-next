@@ -7,13 +7,16 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 import { CreateSchema } from "@/app/dashboard/items/create/schema";
+import { z } from "zod";
+
+type ItemFormData = z.infer<typeof CreateSchema>;
 
 type Props = {
   defaultValues?: {
     name: string;
     description: string;
   };
-  token?: string | ""
+  token?: string;
   submitUrl: string;
   method?: "POST" | "PUT";
 };
@@ -25,35 +28,39 @@ export default function ItemForm({
   method = "POST",
 }: Props) {
   const router = useRouter();
+
   const {
-  register,
-  handleSubmit,
-  reset,
-  formState: { errors, isSubmitting },
-} = useForm({
-  resolver: zodResolver(CreateSchema),
-  defaultValues: {
-    name: "",
-    description: "",
-  },
-});
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ItemFormData>({
+    resolver: zodResolver(CreateSchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
 
-useEffect(() => {
-  if (defaultValues) {
-    reset({
-      name: defaultValues.name,
-      description: defaultValues.description,
-    });
-  }
-}, [defaultValues, reset]);
+  useEffect(() => {
+    if (defaultValues) {
+      reset({
+        name: defaultValues.name,
+        description: defaultValues.description,
+      });
+    }
+  }, [defaultValues, reset]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ItemFormData) => {
     const loading = toast.loading("Saving item...");
 
     try {
       const res = await fetch(submitUrl, {
         method,
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(data),
       });
 
@@ -73,14 +80,16 @@ useEffect(() => {
         <div>
           <label className={styles.label}>Name</label>
           <input {...register("name")} className={styles.input} />
-          {errors.name && <p className={styles.error}>{String(errors.name.message)}</p>}
+          {errors.name && (
+            <p className={styles.error}>{errors.name.message}</p>
+          )}
         </div>
 
         <div>
           <label className={styles.label}>Description</label>
           <textarea {...register("description")} className={styles.textarea} />
           {errors.description && (
-            <p className={styles.error}>{String(errors.description.message)}</p>
+            <p className={styles.error}>{errors.description.message}</p>
           )}
         </div>
 
@@ -93,7 +102,11 @@ useEffect(() => {
             Cancel
           </button>
 
-          <button type="submit" className={styles.submit} disabled={isSubmitting}>
+          <button
+            type="submit"
+            className={styles.submit}
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Saving..." : "Save"}
           </button>
         </div>

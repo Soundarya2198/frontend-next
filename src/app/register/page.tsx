@@ -5,15 +5,17 @@ import {useForm} from "react-hook-form"
 import { RegisterScehema } from "./schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation";
+import {z} from "zod";
 
+type registerForm = z.infer<typeof RegisterScehema>
 
 export default function Register() {
  const router = useRouter();
- const {register, handleSubmit, formState: {errors}} = useForm({
+ const {register, handleSubmit, formState: {errors}} = useForm<registerForm>({
     resolver: zodResolver(RegisterScehema)
  })
 
- const submit = async (data: any) => {
+ const submit = async (data: registerForm) => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
         method: "Post",
         headers : {"Content-type": "application/json"},

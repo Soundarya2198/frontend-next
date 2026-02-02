@@ -1,7 +1,9 @@
 import ItemForm from "@/components/ItemForm";
 import { cookies } from "next/headers";
 
-export default async function EditItemPage({ params }: any) {
+export default async function EditItemPage(
+  {params, }: {params: {id: string}}
+ ) {
   const cookieStore = cookies()
   const token = cookieStore.get("token")?.value
   console.log(token+"tokennnnnnnnn")

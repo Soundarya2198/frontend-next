@@ -4,14 +4,17 @@ import { CreateSchema } from "./schema";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
+import {z} from "zod"
+
+type CreateFormData = z.infer<typeof CreateSchema>;
 
 export default function CreateForm({token} : {token: string}) {
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit, formState: {errors}} = useForm<CreateFormData>({
        resolver: zodResolver(CreateSchema)
     })
     const router = useRouter();
 
-    const submit = async (data: any) => {
+    const submit = async (data: CreateFormData) => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/createItem`, {
             method: "post",
             body: JSON.stringify(data),
